@@ -17,36 +17,58 @@ const NamesInput = ({ setRoundsData }) => {
       return;
     }
     const roundCount = Math.ceil(Math.log2(playerCount)); // calculate total number of rounds needed
-    let initialRoundsNames = []; // initialize initialRoundsData
+    let initialRoundsData = []; // initialize initialRoundsData
     const byeCount = 2 ** roundCount - playerCount; // calculate total number of byes in the 1st round
     const playerByeList = [...playerList, ...Array(byeCount).fill('Bye')]; // create a player list (ordered by seeding) for the 1st round including all the byes
 
-    initialRoundsNames.push(
-      generateFirstRound(roundCount).map((num) => playerByeList[num - 1])
+    initialRoundsData.push(
+      generateFirstRound(roundCount).map((num) => {
+        if (num < byeCount) {
+          return {
+            name: playerByeList[num - 1],
+            win: true,
+            glow: false,
+          };
+        } else {
+          return {
+            name: playerByeList[num - 1],
+            win: false,
+            glow: false,
+          };
+        }
+      })
     );
 
     if (roundCount > 1) {
-      initialRoundsNames.push(
-        generateSecondRound(initialRoundsNames[0], roundCount)
+      initialRoundsData.push(
+        generateSecondRound(
+          initialRoundsData[0].map((player) => player.name),
+          roundCount
+        ).map((playerName) => {
+          return {
+            name: playerName,
+            glow: false,
+            win: false,
+          };
+        })
       );
     }
 
     if (roundCount > 2) {
-      initialRoundsNames = [
-        ...initialRoundsNames,
-        ...generateOtherRounds(roundCount),
-      ];
-    }
+      const otherRoundsData = generateOtherRounds(roundCount).map(
+        (roundData) => {
+          return roundData.map((playerName) => {
+            return {
+              name: playerName,
+              glow: false,
+              win: false,
+            };
+          });
+        }
+      );
 
-    const initialRoundsData = initialRoundsNames.map((roundData) => {
-      return roundData.map((playerName) => {
-        return {
-          name: playerName,
-          glow: false,
-          win: false,
-        };
-      });
-    });
+      initialRoundsData = [...initialRoundsData, ...otherRoundsData];
+    }
 
     setRoundsData(initialRoundsData);
   };

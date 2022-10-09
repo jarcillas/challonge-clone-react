@@ -26,16 +26,18 @@ const Player = ({
       newRoundsData[roundNum - 1][playerNum - 2].win = false;
     }
 
-    newRoundsData[roundNum][matchNum - 1] = {
-      name: name,
-      glow: true,
-      win: false,
-    };
-    newRoundsData = clearRest(
-      newRoundsData,
-      roundNum + 2,
-      Math.ceil(matchNum / 2)
-    );
+    if (roundNum < roundsData.length) {
+      newRoundsData[roundNum][matchNum - 1] = {
+        name: name,
+        glow: true,
+        win: false,
+      };
+      newRoundsData = clearRest(
+        newRoundsData,
+        roundNum + 2,
+        Math.ceil(matchNum / 2)
+      );
+    }
     setRoundsData(newRoundsData);
   };
 
