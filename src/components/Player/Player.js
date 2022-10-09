@@ -5,14 +5,32 @@ const Player = ({
   setRoundsData,
   roundNum,
   matchNum,
+  playerNum,
   glow = false,
+  win,
 }) => {
   const onPlayerClick = () => {
     if (name === 'Bye' || name === null) {
       return;
     }
     let newRoundsData = [...roundsData];
-    newRoundsData[roundNum][matchNum - 1] = { name: name, glow: true };
+    newRoundsData[roundNum - 1][playerNum - 1] = {
+      name: name,
+      glow: true,
+      win: true,
+    };
+
+    if (isUpPlayer) {
+      newRoundsData[roundNum - 1][playerNum].win = false;
+    } else {
+      newRoundsData[roundNum - 1][playerNum - 2].win = false;
+    }
+
+    newRoundsData[roundNum][matchNum - 1] = {
+      name: name,
+      glow: true,
+      win: false,
+    };
     newRoundsData = clearRest(
       newRoundsData,
       roundNum + 2,
@@ -27,6 +45,7 @@ const Player = ({
     } else {
       let nextRoundsData = [...prevRoundsData];
       nextRoundsData[clearRoundNum - 1][clearPlayerNum - 1].name = null;
+      nextRoundsData[clearRoundNum - 1][clearPlayerNum - 1].win = false;
       return clearRest(
         nextRoundsData,
         clearRoundNum + 1,
@@ -80,9 +99,9 @@ const Player = ({
       onClick={onPlayerClick}
       onMouseEnter={onPlayerMouseEnter}
       onMouseLeave={onPlayerMouseLeave}
-      className={`
-      ${isUpPlayer ? 'up player' : 'down player'} 
-      ${glow ? 'glow' : ''}`}
+      className={`${isUpPlayer ? 'up player' : 'down player'} 
+      ${glow ? 'glow' : ''}
+      ${win ? 'win' : ''}`}
     >
       {name}
     </div>

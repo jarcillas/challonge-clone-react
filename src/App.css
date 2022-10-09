@@ -32,6 +32,10 @@ body {
   background-color: #f1e469 !important;
 }
 
+.win {
+  font-weight: bold;
+}
+
 #input-container {
   position: fixed;
   top: 0;
