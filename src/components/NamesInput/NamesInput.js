@@ -17,26 +17,36 @@ const NamesInput = ({ setRoundsData }) => {
       return;
     }
     const roundCount = Math.ceil(Math.log2(playerCount)); // calculate total number of rounds needed
-    let initialRoundsData = []; // initialize initialRoundsData
+    let initialRoundsNames = []; // initialize initialRoundsData
     const byeCount = 2 ** roundCount - playerCount; // calculate total number of byes in the 1st round
     const playerByeList = [...playerList, ...Array(byeCount).fill('Bye')]; // create a player list (ordered by seeding) for the 1st round including all the byes
 
-    initialRoundsData.push(
+    initialRoundsNames.push(
       generateFirstRound(roundCount).map((num) => playerByeList[num - 1])
     );
 
     if (roundCount > 1) {
-      initialRoundsData.push(
-        generateSecondRound(initialRoundsData[0], roundCount)
+      initialRoundsNames.push(
+        generateSecondRound(initialRoundsNames[0], roundCount)
       );
     }
 
     if (roundCount > 2) {
-      initialRoundsData = [
-        ...initialRoundsData,
+      initialRoundsNames = [
+        ...initialRoundsNames,
         ...generateOtherRounds(roundCount),
       ];
     }
+
+    const initialRoundsData = initialRoundsNames.map((roundData) => {
+      return roundData.map((playerName) => {
+        return {
+          name: playerName,
+          glow: false,
+          win: false,
+        };
+      });
+    });
 
     setRoundsData(initialRoundsData);
   };

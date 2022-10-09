@@ -11,7 +11,8 @@ const Match = ({
   return (
     <div className="match">
       <Player
-        name={upPlayer}
+        name={upPlayer.name}
+        glow={upPlayer.glow}
         isUpPlayer={true}
         roundsData={roundsData}
         setRoundsData={setRoundsData}
@@ -19,7 +20,8 @@ const Match = ({
         matchNum={matchNum}
       />
       <Player
-        name={downPlayer}
+        name={downPlayer.name}
+        glow={downPlayer.glow}
         isUpPlayer={false}
         roundsData={roundsData}
         setRoundsData={setRoundsData}

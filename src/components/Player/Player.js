@@ -5,10 +5,14 @@ const Player = ({
   setRoundsData,
   roundNum,
   matchNum,
+  glow = false,
 }) => {
   const onPlayerClick = () => {
+    if (name === 'Bye' || name === null) {
+      return;
+    }
     let newRoundsData = [...roundsData];
-    newRoundsData[roundNum][matchNum - 1] = name;
+    newRoundsData[roundNum][matchNum - 1] = { name: name, glow: true };
     newRoundsData = clearRest(
       newRoundsData,
       roundNum + 2,
@@ -22,7 +26,7 @@ const Player = ({
       return prevRoundsData;
     } else {
       let nextRoundsData = [...prevRoundsData];
-      nextRoundsData[clearRoundNum - 1][clearPlayerNum - 1] = null;
+      nextRoundsData[clearRoundNum - 1][clearPlayerNum - 1].name = null;
       return clearRest(
         nextRoundsData,
         clearRoundNum + 1,
@@ -31,10 +35,54 @@ const Player = ({
     }
   };
 
+  const onPlayerMouseEnter = () => {
+    if (name === 'Bye' || name === null) {
+      return;
+    }
+    let newRoundsData = roundsData.map((roundData) => {
+      if (roundData < roundNum) {
+        return roundData;
+      } else {
+        return roundData.map((player) => {
+          if (player.name === name) {
+            return {
+              ...player,
+              glow: true,
+            };
+          } else {
+            return {
+              ...player,
+              glow: false,
+            };
+          }
+        });
+      }
+    });
+
+    setRoundsData(newRoundsData);
+  };
+
+  const onPlayerMouseLeave = () => {
+    let newRoundsData = roundsData.map((roundData) => {
+      return roundData.map((player) => {
+        return {
+          ...player,
+          glow: false,
+        };
+      });
+    });
+
+    setRoundsData(newRoundsData);
+  };
+
   return (
     <div
       onClick={onPlayerClick}
-      className={isUpPlayer ? 'up player' : 'down player'}
+      onMouseEnter={onPlayerMouseEnter}
+      onMouseLeave={onPlayerMouseLeave}
+      className={`
+      ${isUpPlayer ? 'up player' : 'down player'} 
+      ${glow ? 'glow' : ''}`}
     >
       {name}
     </div>
