@@ -129,6 +129,7 @@ const NamesInput = ({ setRoundsData, showInput, setShowNamesInput }) => {
           cols="30"
           rows="20"
           value={namesInput}
+          spellCheck={false}
         ></textarea>
         <input
           hidden={!showInput}
