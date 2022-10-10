@@ -34,6 +34,19 @@ body {
 
 .win {
   font-weight: bold;
+  position: relative;
+}
+
+.win::after {
+  content: '✔️';
+  position: absolute;
+  right: 10px;
+}
+
+.round:last-child .win::after {
+  content: '🏆';
+  position: absolute;
+  right: 10px;
 }
 
 #input-container {
@@ -45,6 +58,7 @@ body {
   padding: 10px;
   margin: 10px;
   width: 200px;
+  z-index: 999;
 }
 
 #input-heading {
