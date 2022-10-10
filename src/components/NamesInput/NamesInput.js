@@ -23,7 +23,7 @@ const NamesInput = ({ setRoundsData, showInput, setShowNamesInput }) => {
 
     initialRoundsData.push(
       generateFirstRound(roundCount).map((num) => {
-        if (num < byeCount) {
+        if (num <= byeCount) {
           return {
             name: playerByeList[num - 1],
             win: true,
