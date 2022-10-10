@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const NamesInput = ({ setRoundsData }) => {
+const NamesInput = ({ setRoundsData, showInput, setShowNamesInput }) => {
   const defaultPlayers = [...Array(20).keys()].map((n) => `Player ${n + 1}`);
 
   const [namesInput, setNamesInput] = useState(defaultPlayers.join('\n'));
@@ -111,25 +111,35 @@ const NamesInput = ({ setRoundsData }) => {
     return otherRoundsData;
   };
 
+  const onToggleInputClick = (e) => {
+    e.preventDefault();
+    setShowNamesInput(!showInput);
+  };
+
   return (
     <>
       <form id="input-container">
-        <h4 id="input-heading">
+        <h4 hidden={!showInput} id="input-heading">
           Please enter the names of the players/teams ordered by their seed:
         </h4>
         <textarea
           onChange={onNamesInputChange}
+          hidden={!showInput}
           id="name-input"
           cols="30"
           rows="20"
           value={namesInput}
         ></textarea>
         <input
+          hidden={!showInput}
           type="submit"
           value="Create bracket"
           id="create-bracket-button"
           onClick={onCreateBracketClick}
         />
+        <button onClick={onToggleInputClick}>
+          {showInput ? 'Hide' : 'Show'}
+        </button>
       </form>
     </>
   );
