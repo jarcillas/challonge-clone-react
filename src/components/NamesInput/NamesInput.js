@@ -22,7 +22,7 @@ const NamesInput = ({ setRoundsData, showInput, setShowNamesInput }) => {
     setRoundsData(generateInitialRounds(playerList));
   };
 
-  const onToggleInputClick = (e) => {
+  const onToggleButtonClick = (e) => {
     e.preventDefault();
     setShowNamesInput(!showInput);
   };
@@ -49,7 +49,7 @@ const NamesInput = ({ setRoundsData, showInput, setShowNamesInput }) => {
           id="create-bracket-button"
           onClick={onCreateBracketClick}
         />
-        <button onClick={onToggleInputClick}>
+        <button onClick={onToggleButtonClick}>
           {showInput ? 'Hide' : 'Show'}
         </button>
       </form>
