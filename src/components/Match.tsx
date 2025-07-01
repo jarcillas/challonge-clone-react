@@ -1,4 +1,6 @@
-import Player from '../Player';
+import { Player } from './Player';
+
+import type { playerData } from '../helpers/generateInitialRounds';
 
 const Match = ({
   upPlayer,
@@ -7,6 +9,13 @@ const Match = ({
   setRoundsData,
   roundNum,
   matchNum,
+}: {
+  upPlayer: playerData;
+  downPlayer: playerData;
+  roundsData: playerData[][];
+  setRoundsData: Function;
+  roundNum: number;
+  matchNum: number;
 }) => {
   return (
     <div className="match">
@@ -36,4 +45,4 @@ const Match = ({
   );
 };
 
-export default Match;
+export { Match };

@@ -1,6 +1,14 @@
-import Round from '../Round';
+import { Round } from './Round';
 
-const Brackets = ({ roundsData, setRoundsData }) => {
+import type { playerData } from '../helpers/generateInitialRounds';
+
+const Brackets = ({
+  roundsData,
+  setRoundsData,
+}: {
+  roundsData: playerData[][];
+  setRoundsData: Function;
+}) => {
   const renderRounds = roundsData.map((roundData, idx) => (
     <Round
       roundNum={idx + 1}
@@ -14,4 +22,4 @@ const Brackets = ({ roundsData, setRoundsData }) => {
   return <div id="brackets-container">{renderRounds}</div>;
 };
 
-export default Brackets;
+export { Brackets };

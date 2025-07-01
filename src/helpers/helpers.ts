@@ -1,5 +1,5 @@
 // helper function to generate the 1st round seeding matchups recursively. Seeds start from 1.
-const generateMatchups = (roundCount) => {
+const generateMatchups = (roundCount: number): number[] => {
   if (roundCount === 1) {
     return [1, 2];
   } else {
@@ -13,7 +13,7 @@ const generateMatchups = (roundCount) => {
 };
 
 // helper function to generate the 2nd round that advances players facing byes in 1st round
-const generateSecondRound = (round1Data, roundCount) => {
+const generateSecondRound = (round1Data: string[], roundCount: number) => {
   let round2 = [];
   for (let k = 0; k < 2 ** (roundCount - 1); k++) {
     if (round1Data[2 * k + 1] === 'Bye') {
@@ -26,7 +26,7 @@ const generateSecondRound = (round1Data, roundCount) => {
 };
 
 // helper function to generate the rest of the rounds if roundCount > 2
-const generateOtherRounds = (roundCount) => {
+const generateOtherRounds = (roundCount: number) => {
   let otherRoundsData = [];
   for (let j = 2; j < roundCount; j++) {
     let roundArray = Array(2 ** (roundCount - j)).fill(null);

@@ -4,7 +4,13 @@ import {
   generateOtherRounds,
 } from './helpers';
 
-const generateInitialRounds = (playerList) => {
+export type playerData = {
+  name: any;
+  win: boolean;
+  glow: boolean;
+};
+
+const generateInitialRounds = (playerList: String[]): playerData[][] => {
   const playerCount = playerList.length;
 
   const roundCount = Math.ceil(Math.log2(playerCount)); // calculate total number of rounds needed
@@ -62,4 +68,4 @@ const generateInitialRounds = (playerList) => {
   return initialRoundsData;
 };
 
-export default generateInitialRounds;
+export { generateInitialRounds };
