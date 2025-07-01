@@ -1,9 +1,21 @@
-import Match from '../Match';
+import { Match } from './Match';
 
-const Round = ({ roundNum, roundsData, roundData, setRoundsData }) => {
+import type { playerData } from '../helpers/generateInitialRounds';
+
+const Round = ({
+  roundNum,
+  roundsData,
+  roundData,
+  setRoundsData,
+}: {
+  roundNum: number;
+  roundsData: playerData[][];
+  roundData: playerData[];
+  setRoundsData: Function;
+}) => {
   const roundDataByMatch = roundData.reduce(function (
-    result,
-    value,
+    result: playerData[][],
+    _,
     index,
     array
   ) {
@@ -33,4 +45,4 @@ const Round = ({ roundNum, roundsData, roundData, setRoundsData }) => {
   );
 };
 
-export default Round;
+export { Round };

@@ -1,3 +1,14 @@
+import type { playerData } from '../helpers/generateInitialRounds';
+
+type PlayerProps = playerData & {
+  isUpPlayer: boolean;
+  roundsData: playerData[][];
+  setRoundsData: Function;
+  roundNum: number;
+  matchNum: number;
+  playerNum: number;
+};
+
 const Player = ({
   name,
   isUpPlayer,
@@ -8,7 +19,7 @@ const Player = ({
   playerNum,
   glow = false,
   win,
-}) => {
+}: PlayerProps) => {
   const onPlayerClick = () => {
     if (name === 'Bye' || name === null) {
       return;
@@ -41,7 +52,11 @@ const Player = ({
     setRoundsData(newRoundsData);
   };
 
-  const clearRest = (prevRoundsData, clearRoundNum, clearPlayerNum) => {
+  const clearRest = (
+    prevRoundsData: playerData[][],
+    clearRoundNum: number,
+    clearPlayerNum: number
+  ) => {
     if (clearRoundNum > roundsData.length) {
       return prevRoundsData;
     } else {
@@ -60,8 +75,8 @@ const Player = ({
     if (name === 'Bye' || name === null) {
       return;
     }
-    let newRoundsData = roundsData.map((roundData) => {
-      if (roundData < roundNum) {
+    let newRoundsData = roundsData.map((roundData, roundDataIdx) => {
+      if (roundDataIdx > roundNum) {
         return roundData;
       } else {
         return roundData.map((player) => {
@@ -110,4 +125,4 @@ const Player = ({
   );
 };
 
-export default Player;
+export { Player };
